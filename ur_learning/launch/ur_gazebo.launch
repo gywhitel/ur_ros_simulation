@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Gazebo world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" default="worlds/empty.world"/>
+    </include>
+    <!-- parse xacro file into urdf and upload urdf to parameter server -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ur5_description)/urdf/ur5_robot.urdf.xacro'" />
+
+    <!-- spawn robot in gazebo -->
+    <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot" respawn="false" output="screen" />
+
+</launch>
